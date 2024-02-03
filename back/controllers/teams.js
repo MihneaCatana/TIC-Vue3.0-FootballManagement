@@ -1,5 +1,5 @@
 const {db} = require("../firebase/firebase")
-const {collection, getDocs, updateDoc, deleteDoc,doc, addDoc} = require("firebase/firestore");
+const {collection, getDocs, updateDoc, deleteDoc,doc, addDoc, query, where} = require("firebase/firestore");
 
 const teamsRef = collection(db,'teams')
 const getAllTeams = async (req,res) =>{
@@ -17,6 +17,26 @@ const getAllTeams = async (req,res) =>{
         return res.status(404).send({message:"No team found!"})
 
     return res.status(200).send(teams)
+}
+
+const getTeamsByLeague = async (req,res) => {
+
+    let queryLeague = await query(teamsRef, where("league.name", "==", req.params.league))
+
+    const snapshot = await getDocs(queryLeague);
+
+    let teamsFound= [];
+    snapshot.forEach(doc => {
+        let currentPart = {...doc.data()}
+        currentPart.id = doc.id;
+        teamsFound.push(currentPart)
+    })
+
+    if(teamsFound.length === 0)
+        return res.status(404).send({message:"No team found!"})
+
+    return res.status(200).send(teamsFound)
+
 }
 
 const addTeam = async (req,res) =>{
@@ -80,4 +100,4 @@ const deleteTeamById = async (req,res) =>{
 }
 
 
-module.exports = {getAllTeams,addTeam,updateTeamById, deleteTeamById}
+module.exports = {getAllTeams,getTeamsByLeague,addTeam,updateTeamById, deleteTeamById}
