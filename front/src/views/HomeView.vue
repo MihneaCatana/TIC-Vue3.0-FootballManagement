@@ -14,11 +14,11 @@ function comparePlayersByGoals(a, b) {
 }
 
 function comparePlayersByScore(a, b) {
-  return b.stats.averageScore - a.stats?.averageScore
+  return (b?.stats?.averageScore ?? 0) - ((a?.stats?.averageScore ?? 0))
 }
 
 function comparePlayersByMarketValue(a, b) {
-  return b.marketValue - a.marketValue
+  return (b?.stats?.marketValue ?? 0) - ((a?.stats?.marketValue ?? 0))
 }
 
 const playersCopy = [...players]
