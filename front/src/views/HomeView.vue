@@ -4,9 +4,14 @@ import LatestTransfers from "@/components/LatestTransfers.vue";
 import axios from "axios";
 import ListPlayers from "@/components/ListPlayers.vue";
 
+let apiPlayers;
 
-const apiPlayers = await axios.get("http://localhost:8085/api/player")
-const players = apiPlayers.data
+try {
+  apiPlayers = await axios.get("http://localhost:8085/api/player")
+} catch (e) {
+
+}
+const players = apiPlayers?.data ?? []
 
 function comparePlayersByGoals(a, b) {
 
