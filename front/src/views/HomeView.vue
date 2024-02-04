@@ -9,11 +9,12 @@ const apiPlayers = await axios.get("http://localhost:8085/api/player")
 const players = apiPlayers.data
 
 function comparePlayersByGoals(a, b) {
-  return b.stats.goals - a.stats.goals
+
+  return (b?.stats?.goals ?? 0) - ((a?.stats?.goals ?? 0));
 }
 
 function comparePlayersByScore(a, b) {
-  return b.stats.averageScore - a.stats.averageScore
+  return b.stats.averageScore - a.stats?.averageScore
 }
 
 function comparePlayersByMarketValue(a, b) {
@@ -34,7 +35,10 @@ const topValuePlayers = playersCopy.slice(0, 5)
 
 //filter latest transfers by marketValue
 
-const transfers = playersCopy.filter(player => player.pastTeams[1].year === 2023).slice(0, 10)
+const transfers = playersCopy.filter(player => {
+  const secondTeam = player?.pastTeams?.[1];
+  return secondTeam && secondTeam.year === 2023;
+}).slice(0, 10);
 const testData = [{name: 'Robert'}, {
   name: 'Esteban'
 }, {name: 'Mario'}, {name: 'Albert'}]

@@ -16,6 +16,7 @@ const dummyUser = {
 
 const user = email ? await axios.get(`http://localhost:8085/api/user/${email}`) : dummyUser
 
+let file = null;
 </script>
 
 <template>
@@ -35,8 +36,23 @@ const user = email ? await axios.get(`http://localhost:8085/api/user/${email}`) 
         <h2 style="margin-top: 1rem">Hello, {{ user.data.name }}!</h2>
         <div><b>Your email:</b> {{ user.data.email }}</div>
         <div><b>Role: </b>{{ user.data.role || 'DEFAULT' }}</div>
+        <!--        <div style="width: 60%; margin-top: 2rem; margin-bottom: 1rem; max-height: 200px ">-->
+        <!--          <v-file-input-->
+        <!--              v-model="file"-->
+        <!--              :rules="[value => !value || !value.length || value[0].size < 2000000 || 'Avatar size should be less than 2 MB!']"-->
+        <!--              accept="image/png, image/jpeg"-->
+        <!--              counter-->
+        <!--              label="Pick an avatar"-->
+        <!--              placeholder="Pick an avatar"-->
+        <!--              show-size-->
+        <!--              style="width: 250px; overflow: auto"-->
+        <!--          ></v-file-input>-->
+        <!--        </div>-->
+        <!--        <v-btn @click="console.log(file)">-->
+        <!--          Submit-->
+        <!--        </v-btn>-->
         <!--        <div><b>Joined:</b> {{ new Date(user.data.creationDate.seconds * 1000).toLocaleDateString() }}</div>-->
-        <!--https://xsgames.co/randomusers/avatar.php?g=male    - will use for players-->
+
       </div>
 
     </div>

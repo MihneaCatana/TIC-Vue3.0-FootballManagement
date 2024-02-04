@@ -9,6 +9,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@date-io/date-fns": "^3.0.0",
     "@faker-js/faker": "^8.4.0",
     "@mdi/font": "^7.4.47",
     "axios": "^1.6.7",
